@@ -191,8 +191,19 @@ async def get_clan(ctx, clan_tag: str):
 if __name__ == '__main__':
     DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
     if not DISCORD_TOKEN:
-        print('Error: DISCORD_TOKEN not found in .env file')
+        print('Error: DISCORD_TOKEN not found in environment variables')
+        print('Please set DISCORD_TOKEN in your cloud platform settings')
+        exit(1)
     elif not COC_API_KEY:
-        print('Error: COC_API_KEY not found in .env file')
+        print('Error: COC_API_KEY not found in environment variables')
+        print('Please set COC_API_KEY in your cloud platform settings')
+        exit(1)
     else:
-        bot.run(DISCORD_TOKEN)
+        print('Starting bot...')
+        print(f'Discord Token: {"*" * 20}...{DISCORD_TOKEN[-10:]}')
+        print(f'COC API Key: {"*" * 20}...{COC_API_KEY[-10:]}')
+        try:
+            bot.run(DISCORD_TOKEN)
+        except Exception as e:
+            print(f'Failed to start bot: {e}')
+            exit(1)
